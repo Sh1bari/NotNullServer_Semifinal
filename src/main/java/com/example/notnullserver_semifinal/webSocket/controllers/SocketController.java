@@ -23,6 +23,6 @@ public class SocketController extends MainServerSocket {
         System.out.println(handshakeConnectionMessage);
         String varHandshakeConnectionMessage = handshakeConnectionMessage;
         handshakeConnectionMessage = null;
-        return varHandshakeConnectionMessage;
+        return "ghbdtn";
     }
 }
