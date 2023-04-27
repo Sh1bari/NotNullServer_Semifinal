@@ -7,8 +7,8 @@ Password: 123<br/>
 <h4>2. Создать БД</h4>
 Перейти в pgAdmin 4<br/>
 Создать базу данных Servers->PostgreSQL 15->Базы Данных<br/>
-Имя notNullServer
-<a>Владелец root</a>
+Имя notNullServer<br/>
+Владелец root
 <h4>3. Сверить файл application.properties</h4>
 Путь файла: src/main/resources<br/>
 Строка spring.datasource.url =
