@@ -33,10 +33,6 @@ public class MainServerSocket extends SocketImlp {
 
     public void mainSock(){
         start();
-        /*ValueRef val = ValueRef.newBuilder()
-                .build();
-        OutputStream str = clientSocket.getOutputStream();
-        str.write(val.toByteArray());*/
     }
 
     @SneakyThrows
