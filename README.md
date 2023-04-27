@@ -1,9 +1,9 @@
 <h1 align="center">Для запуска сервера</h1>
 <h3>PostgreSql 15</h3>
 <h4>1. Создать роль входа</h4>
-<a>Username: root</a>
-<a>Password: 123</a>
-<a>Дать все права</a>
+<a>Username: root
+Password: 123
+Дать все права</a>
 <h4>2. Создать БД</h4>
 <a>Перейти в pgAdmin 4</a>
 <a>Создать базу данных Servers->PostgreSQL 15->Базы Данных</a>
