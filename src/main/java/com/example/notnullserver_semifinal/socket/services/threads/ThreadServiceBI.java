@@ -27,11 +27,6 @@ public class ThreadServiceBI extends MainServerSocket {
         start();
     }
 
-
-    public static String toJson(MessageOrBuilder messageOrBuilder) throws IOException {
-        return JsonFormat.printer().print(messageOrBuilder);
-    }
-
     @Override
     public void run(){
         handshakeConnect();
@@ -57,8 +52,7 @@ public class ThreadServiceBI extends MainServerSocket {
             ExchangeInfoMessage exchangeInfoMessage = ExchangeInfoMessage.parseFrom(handshake);
             if (exchangeInfoMessage.getRequest().getCommand() == MessageEnumsProto.CommandType.ctHandshake) {
                 timeout = false;
-                handshakeConnectionMessage = toJson(exchangeInfoMessage);
-                System.out.println(handshakeConnectionMessage);
+                handshakeConnectionMessage = exchangeInfoMessage;
             }
             synchronized (objForClose){
                 objForClose.notify();

@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import com.example.notnullserver_semifinal.socket.services.serviceImpl.SocketImlp;
 import com.example.notnullserver_semifinal.socket.services.threads.ThreadServiceBI;
+import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -28,7 +29,7 @@ public class MainServerSocket extends SocketImlp {
 
     protected static final Object objForHandshake = new Object();
 
-    public static volatile String handshakeConnectionMessage;
+    public static ExchangeInfoMessage handshakeConnectionMessage;
 
     public void mainSock(){
         start();
