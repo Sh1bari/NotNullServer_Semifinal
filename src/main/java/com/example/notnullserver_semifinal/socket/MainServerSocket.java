@@ -18,7 +18,7 @@ public class MainServerSocket extends SocketImlp {
             Logger.getLogger(MainServerSocket.class.getName());
 
     public static String toJson(MessageOrBuilder messageOrBuilder) throws IOException {
-        return JsonFormat.printer().print(messageOrBuilder);
+        return JsonFormat.printer().includingDefaultValueFields().print(messageOrBuilder);
     }
 
     private Socket socket;

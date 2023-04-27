@@ -35,8 +35,8 @@ public class SocketController extends MainServerSocket {
         String answer = null;
         try {
             answer = toJson(varHandshakeConnectionMessage);
+            System.out.println(answer);
         }catch (Exception e){
-            log.info("Ошибка parse toJson");
         }
         return answer;
     }
