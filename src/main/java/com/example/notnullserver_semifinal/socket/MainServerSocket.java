@@ -27,8 +27,6 @@ public class MainServerSocket extends SocketImlp {
 
     public static final Object objForClose = new Object();
 
-    protected static final Object objForHandshake = new Object();
-
     public static ExchangeInfoMessage handshakeConnectionMessage;
 
     public void mainSock(){

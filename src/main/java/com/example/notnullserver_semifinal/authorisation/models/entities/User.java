@@ -26,6 +26,4 @@ public class User {
     @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Session session;
 
-
-
 }

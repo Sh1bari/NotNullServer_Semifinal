@@ -29,7 +29,7 @@ public class SocketController extends MainServerSocket {
 
     @MessageMapping("/messageForHandshake")
     @SendTo("/connect/newHandshake")
-    private String send(@RequestBody Message message) throws IOException {
+    private String send(@RequestBody Message message){
         ExchangeInfoMessage varHandshakeConnectionMessage = handshakeConnectionMessage;
         handshakeConnectionMessage = null;
         String answer = null;
