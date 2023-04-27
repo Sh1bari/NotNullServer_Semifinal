@@ -18,6 +18,3 @@ Database->New->Data Source->PostgreSql<br/>
 <h3>Java приложение</h3>
 <h4>1. Обновить maven</h4>
 Подгрузить зависимости<br/>
-В Maven запустить maven->NotNullServer->Plugins->protobuf->protobuf:compile<br/>
-
-После создания протокола ещё раз обновить Maven

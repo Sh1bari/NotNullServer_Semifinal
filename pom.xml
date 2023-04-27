@@ -132,7 +132,7 @@
 			<artifactId>sample</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/ru.jar</systemPath>
+			<systemPath>${project.basedir}/src/main/resources/compiledProto.jar</systemPath>
 		</dependency>
 	</dependencies>
 
