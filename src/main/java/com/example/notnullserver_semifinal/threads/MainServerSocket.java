@@ -1,15 +1,16 @@
-package com.example.notnullserver_semifinal.socket;
+package com.example.notnullserver_semifinal.threads;
 
-import com.google.protobuf.MessageOrBuilder;
-import com.google.protobuf.util.JsonFormat;
+import com.example.notnullserver_semifinal.threads.models.ServiceBI;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import com.example.notnullserver_semifinal.socket.services.serviceImpl.SocketImlp;
-import com.example.notnullserver_semifinal.socket.services.threads.ThreadServiceBI;
 import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
 
-import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Service
@@ -25,6 +26,9 @@ public class MainServerSocket extends SocketImlp {
     public static final Object objForClose = new Object();
 
     public static ExchangeInfoMessage handshakeConnectionMessage;
+
+
+    public static Map<String, Socket> serviceBIMap = new HashMap<>();
 
     public void mainSock(){
         start();

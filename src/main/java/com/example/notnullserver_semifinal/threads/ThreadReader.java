@@ -1,6 +1,4 @@
-package com.example.notnullserver_semifinal.socket.services.threads;
-
-import com.example.notnullserver_semifinal.socket.MainServerSocket;
+package com.example.notnullserver_semifinal.threads;
 
 import java.io.IOException;
 import java.io.InputStream;

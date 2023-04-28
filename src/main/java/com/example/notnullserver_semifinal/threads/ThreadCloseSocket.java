@@ -1,6 +1,6 @@
-package com.example.notnullserver_semifinal.socket.services.threads;
+package com.example.notnullserver_semifinal.threads;
 
-import com.example.notnullserver_semifinal.socket.MainServerSocket;
+import com.example.notnullserver_semifinal.threads.models.ServiceBI;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -27,6 +27,7 @@ public class ThreadCloseSocket extends MainServerSocket {
                 log.info("Превышено время ожидания или ответ (ctHandshake) не поступил");
             }else {
                 log.info("Новое подключение " + socket.getLocalAddress());
+                serviceBIMap.put(handshakeConnectionMessage.getHeader().getReceiver(), socket);
             }
             timeout = true;
         } catch (InterruptedException | IOException e) {

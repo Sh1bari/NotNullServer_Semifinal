@@ -1,14 +1,10 @@
-package com.example.notnullserver_semifinal.socket.services.threads;
+package com.example.notnullserver_semifinal.threads;
 
 import com.example.notnullserver_semifinal.models.ExchangeInfoMessageExample;
 import com.example.notnullserver_semifinal.models.HeaderExample;
 import com.example.notnullserver_semifinal.models.RequestExample;
-import com.example.notnullserver_semifinal.socket.MainServerSocket;
 import com.example.notnullserver_semifinal.socket.config.Config;
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.MessageOrBuilder;
-import com.google.protobuf.util.JsonFormat;
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.sovcombank.hackaton.proto.*;
 
 import java.io.*;
