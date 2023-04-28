@@ -41,19 +41,7 @@ public class ThreadServiceBI extends MainServerSocket {
         try{
             new ThreadCloseSocket(socket);
             Thread.sleep(200);
-            byte[] data = null;
-            int length = -1;
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            DataInputStream in1 = new DataInputStream(socket.getInputStream());
-            while (true) {
-                if ((length = in1.available()) > 0) {
-                    data = new byte[length];
-                    in1.readFully(data, 0, length);
-                    outputStream.write(data, 0, length);
-                    break;
-                }
-            }
-            byte[] handshake = data;
+            byte[] handshake = readAllBytes(socket);
             ExchangeInfoMessage exchangeInfoMessage = ExchangeInfoMessage.parseFrom(handshake);
             if (exchangeInfoMessage.getRequest().getCommand() == MessageEnumsProto.CommandType.ctHandshake) {
                 timeout = false;
@@ -66,8 +54,6 @@ public class ThreadServiceBI extends MainServerSocket {
 
         } catch (InvalidProtocolBufferException e) {
             log.info("Ошибка в дешифрации запроса/ответа");
-        } catch (IOException e) {
-            log.info("Ошибка в чтении запроса/ответа или ответ не поступил");
         } catch (InterruptedException e) {
             log.info("Thread interrupted");
         }
