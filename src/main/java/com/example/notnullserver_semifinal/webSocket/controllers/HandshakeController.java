@@ -32,13 +32,6 @@ public class HandshakeController extends ThreadServiceBI {
     }
 
     @SneakyThrows
-    @MessageMapping("/subscribeToHandshakes")
-    @SendTo("/connect/newHandshake")
-    public String send(){
-        return null;
-    }
-
-    @SneakyThrows
     @Override
     public void run(){
         Map<Socket, String> varMap = new HashMap<>();

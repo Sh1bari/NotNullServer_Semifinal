@@ -31,6 +31,8 @@ public class ThreadServiceBI extends MainServerSocket {
     private InputStream in;
     private OutputStream out;
 
+    public static boolean responseTimeout = true;
+    public static final Object objForStatusCloseSocket = new Object();
 
     public ThreadServiceBI(Socket socket) throws IOException {
         this.socket = socket;
