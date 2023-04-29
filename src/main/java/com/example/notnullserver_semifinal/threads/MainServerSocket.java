@@ -32,6 +32,8 @@ public class MainServerSocket extends SocketImlp {
 
     public static Map<String, Socket> serviceBIMap = new HashMap<>();
 
+    public static Map<Socket, String> mapOfHandshakes = new HashMap<>();
+
     @Autowired
     private SimpMessagingTemplate template;
     public void mainSock(){

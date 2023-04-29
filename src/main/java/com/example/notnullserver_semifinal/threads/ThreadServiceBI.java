@@ -31,8 +31,6 @@ public class ThreadServiceBI extends MainServerSocket {
     private InputStream in;
     private OutputStream out;
 
-    public static Map<Socket, String> mapOfHandshakes = new HashMap<>();
-
 
     public ThreadServiceBI(Socket socket) throws IOException {
         this.socket = socket;

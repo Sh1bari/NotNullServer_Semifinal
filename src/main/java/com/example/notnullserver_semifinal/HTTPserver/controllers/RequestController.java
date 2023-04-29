@@ -16,9 +16,9 @@ public class RequestController {
     private RequestService requestService;
 
 
-    @GetMapping("/null")
+    /*@GetMapping("/null")
     public String getResponse(){
         List<String> list = new LinkedList<>();
         return list.toString();
-    }
+    }*/
 }

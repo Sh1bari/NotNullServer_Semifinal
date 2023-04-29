@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
-public class HandshakeRestController extends ThreadServiceBI {
+public class HandshakeRestController extends MainServerSocket {
 
-    @Autowired
-    private SimpMessagingTemplate template;
 
-    /*@GetMapping("/subscribeToHandshakes")
-    public void getHandshakes(){
-
-    }*/
+    @GetMapping("/getCurHandshakes")
+    public List<String> getHandshakes(){
+        return mapOfHandshakes.values().stream().toList();
+    }
 }
