@@ -4,15 +4,20 @@ import com.example.notnullserver_semifinal.models.ExchangeInfoMessageExample;
 import com.example.notnullserver_semifinal.models.HeaderExample;
 import com.example.notnullserver_semifinal.models.RequestExample;
 import com.example.notnullserver_semifinal.socket.config.Config;
+import com.example.notnullserver_semifinal.webSocket.models.Message;
 import com.google.protobuf.InvalidProtocolBufferException;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import ru.sovcombank.hackaton.proto.*;
 
 import java.io.*;
 import java.net.Socket;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class ThreadServiceBI extends MainServerSocket {
@@ -20,12 +25,12 @@ public class ThreadServiceBI extends MainServerSocket {
     private static final Logger log =
             Logger.getLogger(ThreadServiceBI.class.getName());
 
-    private Socket socket;
+    protected static Socket socket;
     private InputStream in;
     private OutputStream out;
 
-    @Autowired
-    SimpMessagingTemplate template;
+    public static List<String> listOfNewHandshakes = new LinkedList<>();
+
 
     public ThreadServiceBI(Socket socket) throws IOException {
         this.socket = socket;
@@ -36,6 +41,7 @@ public class ThreadServiceBI extends MainServerSocket {
 
     public ThreadServiceBI() {
     }
+
 
     @Override
     public void run(){
@@ -53,7 +59,8 @@ public class ThreadServiceBI extends MainServerSocket {
                 timeout = false;
                 sendHandshakeResponse(exchangeInfoMessage);     //Ответ на handshake
                 serviceBIMap.put(exchangeInfoMessage.getHeader().getReceiver(), socket);
-                template.convertAndSend("/connect/newHandshake", toJson(exchangeInfoMessage));
+                log.info("Новое подключение " + socket.getLocalAddress());
+                listOfNewHandshakes.add(toJson(exchangeInfoMessage));
             }
             synchronized (objForClose){
                 objForClose.notify();

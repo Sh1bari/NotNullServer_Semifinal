@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 public class ThreadCloseSocket extends ThreadServiceBI {
     private static final Logger log =
             Logger.getLogger(ThreadCloseSocket.class.getName());
-    public Socket socket;
 
     public ThreadCloseSocket(){
         start();
@@ -24,9 +23,6 @@ public class ThreadCloseSocket extends ThreadServiceBI {
             if(timeout){
                 socket.close();
                 log.info("Превышено время ожидания или ответ (ctHandshake) не поступил");
-            }else {
-                log.info("Новое подключение " + socket.getLocalAddress());
-
             }
             timeout = true;
         } catch (InterruptedException | IOException e) {

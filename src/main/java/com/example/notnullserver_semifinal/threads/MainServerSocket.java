@@ -2,6 +2,8 @@ package com.example.notnullserver_semifinal.threads;
 
 import com.example.notnullserver_semifinal.threads.models.ServiceBI;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import com.example.notnullserver_semifinal.socket.services.serviceImpl.SocketImlp;
 import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
 public class MainServerSocket extends SocketImlp {
     private static final Logger log =
             Logger.getLogger(MainServerSocket.class.getName());
+
 
 
     private Socket socket;
