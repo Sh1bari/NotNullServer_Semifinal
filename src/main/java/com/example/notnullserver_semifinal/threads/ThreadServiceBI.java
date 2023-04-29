@@ -5,6 +5,9 @@ import com.example.notnullserver_semifinal.models.HeaderExample;
 import com.example.notnullserver_semifinal.models.RequestExample;
 import com.example.notnullserver_semifinal.socket.config.Config;
 import com.google.protobuf.InvalidProtocolBufferException;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import ru.sovcombank.hackaton.proto.*;
 
 import java.io.*;
@@ -21,6 +24,9 @@ public class ThreadServiceBI extends MainServerSocket {
     private InputStream in;
     private OutputStream out;
 
+    @Autowired
+    SimpMessagingTemplate template;
+
     public ThreadServiceBI(Socket socket) throws IOException {
         this.socket = socket;
         in = socket.getInputStream();
@@ -28,21 +34,26 @@ public class ThreadServiceBI extends MainServerSocket {
         start();
     }
 
+    public ThreadServiceBI() {
+    }
+
     @Override
     public void run(){
         handshakeConnect();
     }
 
+    @SneakyThrows
     private void handshakeConnect(){
         try{
-            new ThreadCloseSocket(socket);
+            new ThreadCloseSocket();
             Thread.sleep(200);
             byte[] handshake = readAllBytes(socket);
             ExchangeInfoMessage exchangeInfoMessage = ExchangeInfoMessage.parseFrom(handshake);
             if (exchangeInfoMessage.getRequest().getCommand() == MessageEnumsProto.CommandType.ctHandshake) {
                 timeout = false;
-                handshakeConnectionMessage = exchangeInfoMessage;
                 sendHandshakeResponse(exchangeInfoMessage);     //Ответ на handshake
+                serviceBIMap.put(exchangeInfoMessage.getHeader().getReceiver(), socket);
+                template.convertAndSend("/connect/newHandshake", toJson(exchangeInfoMessage));
             }
             synchronized (objForClose){
                 objForClose.notify();

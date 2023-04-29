@@ -6,13 +6,12 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-public class ThreadCloseSocket extends MainServerSocket {
+public class ThreadCloseSocket extends ThreadServiceBI {
     private static final Logger log =
             Logger.getLogger(ThreadCloseSocket.class.getName());
     public Socket socket;
 
-    public ThreadCloseSocket(Socket socket){
-        this.socket = socket;
+    public ThreadCloseSocket(){
         start();
     }
 
@@ -27,7 +26,7 @@ public class ThreadCloseSocket extends MainServerSocket {
                 log.info("Превышено время ожидания или ответ (ctHandshake) не поступил");
             }else {
                 log.info("Новое подключение " + socket.getLocalAddress());
-                serviceBIMap.put(handshakeConnectionMessage.getHeader().getReceiver(), socket);
+
             }
             timeout = true;
         } catch (InterruptedException | IOException e) {

@@ -25,8 +25,6 @@ public class MainServerSocket extends SocketImlp {
 
     public static final Object objForClose = new Object();
 
-    public static ExchangeInfoMessage handshakeConnectionMessage;
-
 
     public static Map<String, Socket> serviceBIMap = new HashMap<>();
 
