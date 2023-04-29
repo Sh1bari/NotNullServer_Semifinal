@@ -1,11 +1,9 @@
 package com.example.notnullserver_semifinal.webSocket.controllers;
 
-import com.example.notnullserver_semifinal.threads.MainServerSocket;
 import com.example.notnullserver_semifinal.threads.ThreadServiceBI;
-import com.example.notnullserver_semifinal.webSocket.models.Message;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -14,6 +12,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 
 @CrossOrigin
 @Controller
@@ -21,16 +24,34 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 @EnableWebSocket
 public class HandshakeController extends ThreadServiceBI {
 
-    @Autowired
-    private SimpMessagingTemplate template;
+    private final SimpMessagingTemplate template;
+
+    public HandshakeController(SimpMessagingTemplate template){
+        start();
+        this.template = template;
+    }
+
+    @SneakyThrows
     @MessageMapping("/subscribeToHandshakes")
     @SendTo("/connect/newHandshake")
-    public String send(@Payload Message message){
-        System.out.println(message);
+    public String send(){
+        return null;
+    }
+
+    @SneakyThrows
+    @Override
+    public void run(){
+        Map<Socket, String> varMap = new HashMap<>();
+        if(!mapOfHandshakes.isEmpty()){
+            varMap.putAll(mapOfHandshakes);
+        }
+        System.out.println(mapOfHandshakes);
         while (true){
-            if(!listOfNewHandshakes.isEmpty()){
-                template.convertAndSend("/connect/newHandshake", listOfNewHandshakes.get(0));
-                listOfNewHandshakes.remove(0);
+            Thread.sleep(200);
+            if(!Objects.equals(varMap, mapOfHandshakes)){
+                template.convertAndSend("/connect/newHandshake", mapOfHandshakes.values().toString());
+                varMap.clear();
+                varMap.putAll(mapOfHandshakes);
             }
         }
     }

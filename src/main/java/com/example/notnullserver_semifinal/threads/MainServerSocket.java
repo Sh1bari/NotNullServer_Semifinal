@@ -1,7 +1,9 @@
 package com.example.notnullserver_semifinal.threads;
 
 import com.example.notnullserver_semifinal.threads.models.ServiceBI;
+import com.example.notnullserver_semifinal.webSocket.controllers.HandshakeController;
 import lombok.SneakyThrows;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -28,10 +30,12 @@ public class MainServerSocket extends SocketImlp {
 
     public static final Object objForClose = new Object();
 
-
     public static Map<String, Socket> serviceBIMap = new HashMap<>();
 
+    @Autowired
+    private SimpMessagingTemplate template;
     public void mainSock(){
+        new HandshakeController(template);
         start();
     }
 

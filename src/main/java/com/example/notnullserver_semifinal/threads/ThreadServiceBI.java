@@ -16,8 +16,10 @@ import ru.sovcombank.hackaton.proto.*;
 import java.io.*;
 import java.net.Socket;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class ThreadServiceBI extends MainServerSocket {
@@ -29,7 +31,7 @@ public class ThreadServiceBI extends MainServerSocket {
     private InputStream in;
     private OutputStream out;
 
-    public static List<String> listOfNewHandshakes = new LinkedList<>();
+    public static Map<Socket, String> mapOfHandshakes = new HashMap<>();
 
 
     public ThreadServiceBI(Socket socket) throws IOException {
@@ -60,7 +62,7 @@ public class ThreadServiceBI extends MainServerSocket {
                 sendHandshakeResponse(exchangeInfoMessage);     //Ответ на handshake
                 serviceBIMap.put(exchangeInfoMessage.getHeader().getReceiver(), socket);
                 log.info("Новое подключение " + socket.getLocalAddress());
-                listOfNewHandshakes.add(toJson(exchangeInfoMessage));
+                mapOfHandshakes.put(socket, toJson(exchangeInfoMessage));
             }
             synchronized (objForClose){
                 objForClose.notify();
