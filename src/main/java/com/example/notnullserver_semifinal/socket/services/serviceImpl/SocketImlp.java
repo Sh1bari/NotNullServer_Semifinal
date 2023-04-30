@@ -9,7 +9,9 @@ import com.google.protobuf.util.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -48,6 +50,13 @@ public class SocketImlp
 
     public static Message fromJson(String json) throws IOException {
         Struct.Builder structBuilder = Struct.newBuilder();
+        JsonFormat.parser().ignoringUnknownFields().merge(json, structBuilder);
+        return structBuilder.build();
+    }
+
+    @SneakyThrows
+    public static Message fromJson1 (String json){
+        ExchangeInfoMessage.Builder structBuilder = ExchangeInfoMessage.newBuilder();
         JsonFormat.parser().ignoringUnknownFields().merge(json, structBuilder);
         return structBuilder.build();
     }
