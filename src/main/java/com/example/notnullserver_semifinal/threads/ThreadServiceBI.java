@@ -27,10 +27,8 @@ public class ThreadServiceBI extends MainServerSocket {
     private InputStream in;
     private OutputStream out;
 
-    protected static boolean errorMessageSend = true;
-
-    protected static ExchangeInfoMessage errorMessage;
-
+    public static boolean requestTimeout = true;
+    public static final Object objForRequestCloseSocket = new Object();
     public static boolean responseTimeout = true;
     public static final Object objForStatusCloseSocket = new Object();
 

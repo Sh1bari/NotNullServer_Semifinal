@@ -47,17 +47,16 @@ public class ThreadStatusCheck extends ThreadServiceBI{
                     if(msg.getResponse().getAnswerType() == MessageEnumsProto.AnswerType.atAnswerOK){
                         responseTimeout = false;
                         template.convertAndSend("/connect/getStatus", toJson(msg));
-                        System.out.println(toJson(msg));
                     }else if (msg.getResponse().getAnswerType() == MessageEnumsProto.AnswerType.atAnswerError){
                         ErrorMessage error = new ErrorMessage();
                         error.setCommand("atAnswerError");
                         error.setErrorText(msg.getResponse().getErrorText());
-                        template.convertAndSend("/errors", error);
+                        template.convertAndSend("/connect/errors", error);
                     } else if (msg.getResponse().getAnswerType() == MessageEnumsProto.AnswerType.atNotSupported) {
                         ErrorMessage error = new ErrorMessage();
                         error.setCommand("atAnswerError");
                         error.setErrorText(msg.getResponse().getErrorText());
-                        template.convertAndSend("/errors", error);
+                        template.convertAndSend("/connect/errors", error);
                     }
                     responseTimeout = false;
                     synchronized (objForStatusCloseSocket) {
