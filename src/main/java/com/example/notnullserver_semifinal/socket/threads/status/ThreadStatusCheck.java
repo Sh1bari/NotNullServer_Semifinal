@@ -74,7 +74,7 @@ public class ThreadStatusCheck extends ThreadServiceBI {
                     while (true) {
                         ExchangeInfoMessage event = ExchangeInfoMessage.parseFrom(readAllBytes(socket));
                         if (event.hasEvent()) {
-                            template.convertAndSend("/connect/eventListener");
+                            template.convertAndSendToUser(sessionId,"/queue/eventListener",event);
                         } else break;
                     }
                 }
