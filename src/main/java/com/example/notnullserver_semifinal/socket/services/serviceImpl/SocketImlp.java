@@ -48,11 +48,6 @@ public class SocketImlp
         return JsonFormat.printer().includingDefaultValueFields().print(messageOrBuilder);
     }
 
-    /*public static Message fromJson(String json) throws IOException {
-        Struct.Builder structBuilder = Struct.newBuilder();
-        JsonFormat.parser().ignoringUnknownFields().merge(json, structBuilder);
-        return structBuilder.build();
-    }*/
 
     @SneakyThrows
     public static Message fromJson (String json){
