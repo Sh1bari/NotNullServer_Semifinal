@@ -1,8 +1,5 @@
 package com.example.notnullserver_semifinal.threads;
 
-import com.example.notnullserver_semifinal.models.ExchangeInfoMessageExample;
-import com.example.notnullserver_semifinal.models.HeaderExample;
-import com.example.notnullserver_semifinal.models.RequestExample;
 import com.example.notnullserver_semifinal.socket.config.Config;
 import ru.sovcombank.hackaton.proto.*;
 
