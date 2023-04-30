@@ -12,4 +12,6 @@ public class ExchangeInfoMessageExample {
     private HeaderExample header;
 
     private RequestExample requestExample;
+
+    private EventExample eventExample;
 }
