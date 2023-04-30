@@ -34,6 +34,7 @@ public class ThreadStatusCheck extends ThreadServiceBI{
         responseTimeout = true;
     }
 
+    @SneakyThrows
     @Override
     public void run() {
         new ThreadStatusClose(socket, name);
@@ -47,9 +48,7 @@ public class ThreadStatusCheck extends ThreadServiceBI{
                 ExchangeInfoMessage msg = ExchangeInfoMessage.parseFrom(readAllBytes(socket));
                 if (msg.hasResponse()) {
                     responseTimeout = false;
-                    List<String> list = new ArrayList<>();
-                    list.add(msg.toString());
-                    template.convertAndSend("/connect/getStatus", list);
+                    template.convertAndSend("/connect/getStatus", toJson(msg));
                     synchronized (objForStatusCloseSocket) {
                         objForStatusCloseSocket.notifyAll();
                     }
