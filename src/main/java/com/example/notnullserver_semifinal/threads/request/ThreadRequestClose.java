@@ -1,5 +1,6 @@
-package com.example.notnullserver_semifinal.threads;
+package com.example.notnullserver_semifinal.threads.request;
 
+import com.example.notnullserver_semifinal.threads.ThreadServiceBI;
 import com.example.notnullserver_semifinal.threads.models.ErrorMessage;
 import lombok.SneakyThrows;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -18,7 +19,7 @@ public class ThreadRequestClose extends ThreadServiceBI {
 
     private final SimpMessagingTemplate template;
 
-    public ThreadRequestClose(Socket socket, String name, SimpMessagingTemplate template){
+    public ThreadRequestClose(Socket socket, String name, SimpMessagingTemplate template) {
         this.template = template;
         this.name = name;
         this.socket = socket;
@@ -28,10 +29,10 @@ public class ThreadRequestClose extends ThreadServiceBI {
     @SneakyThrows
     @Override
     public void run() {
-        synchronized (objForRequestCloseSocket){
+        synchronized (objForRequestCloseSocket) {
             objForRequestCloseSocket.wait(5000);
         }
-        if(requestTimeout){
+        if (requestTimeout) {
             serviceBIMap.remove(name);
             mapOfHandshakes.remove(socket);
             socket.close();

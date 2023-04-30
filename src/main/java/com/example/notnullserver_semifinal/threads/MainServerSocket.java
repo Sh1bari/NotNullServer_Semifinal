@@ -23,7 +23,6 @@ public class MainServerSocket extends SocketImlp {
             Logger.getLogger(MainServerSocket.class.getName());
 
 
-
     private Socket socket;
 
     public static boolean timeout = true;
@@ -36,20 +35,26 @@ public class MainServerSocket extends SocketImlp {
 
     @Autowired
     private SimpMessagingTemplate template;
-    public void mainSock(){
+
+    public void mainSock() {
         new HandshakeController(template);
         start();
     }
 
+
     @SneakyThrows
     @Override
-    public void run(){
-        openMainSocket();
-        while(true){
+    public void run() {
+        try {
+            openMainSocket();
+        } catch (Exception e) {
+            log.info("Не получилось открыть порт");
+        }
+        while (true) {
             socket = serverSocket.accept();
             try {
                 new ThreadServiceBI(socket);
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.info("Не удалось подключиться к сервису");
                 socket.close();
             }

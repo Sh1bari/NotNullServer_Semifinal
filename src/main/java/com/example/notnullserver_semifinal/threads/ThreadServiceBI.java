@@ -37,12 +37,12 @@ public class ThreadServiceBI extends MainServerSocket {
 
 
     @Override
-    public void run(){
+    public void run() {
         handshakeConnect();
     }
 
-    private void handshakeConnect(){
-        try{
+    private void handshakeConnect() {
+        try {
             new ThreadCloseSocket();
             Thread.sleep(100);
             byte[] handshake = readAllBytes(socket);
@@ -54,7 +54,7 @@ public class ThreadServiceBI extends MainServerSocket {
                 log.info("Новое подключение " + socket.getLocalAddress());
                 mapOfHandshakes.put(socket, toJson(exchangeInfoMessage));
             }
-            synchronized (objForClose){
+            synchronized (objForClose) {
                 objForClose.notify();
             }
 
@@ -65,7 +65,7 @@ public class ThreadServiceBI extends MainServerSocket {
         }
     }
 
-    private void sendHandshakeResponse(ExchangeInfoMessage exchangeInfoMessage){
+    private void sendHandshakeResponse(ExchangeInfoMessage exchangeInfoMessage) {
         ExchangeInfoMessage handshakeResponse = ExchangeInfoMessage.newBuilder()
                 .setHeader(Header.newBuilder()
                         .setMessageNum("999")
