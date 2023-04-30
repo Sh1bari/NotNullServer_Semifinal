@@ -38,7 +38,6 @@ public class HandshakeController extends ThreadServiceBI {
         if(!mapOfHandshakes.isEmpty()){
             varMap.putAll(mapOfHandshakes);
         }
-        System.out.println(mapOfHandshakes);
         while (true){
             Thread.sleep(200);
             if(!Objects.equals(varMap, mapOfHandshakes)){

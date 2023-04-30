@@ -16,10 +16,6 @@ import ru.sovcombank.hackaton.proto.*;
 import java.io.*;
 import java.net.Socket;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class ThreadServiceBI extends MainServerSocket {
@@ -30,6 +26,10 @@ public class ThreadServiceBI extends MainServerSocket {
     protected static Socket socket;
     private InputStream in;
     private OutputStream out;
+
+    protected static boolean errorMessageSend = true;
+
+    protected static ExchangeInfoMessage errorMessage;
 
     public static boolean responseTimeout = true;
     public static final Object objForStatusCloseSocket = new Object();
