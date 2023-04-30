@@ -1,6 +1,5 @@
-package com.example.notnullserver_semifinal.threads;
+package com.example.notnullserver_semifinal.socket.threads;
 
-import com.example.notnullserver_semifinal.socket.config.Config;
 import ru.sovcombank.hackaton.proto.*;
 
 import java.io.*;
@@ -41,7 +40,7 @@ public class ThreadServiceBI extends MainServerSocket {
     private void handshakeConnect() {
         try {
             new ThreadCloseSocket();
-            Thread.sleep(100);
+            sleep(100);
             byte[] handshake = readAllBytes(socket);
             ExchangeInfoMessage exchangeInfoMessage = ExchangeInfoMessage.parseFrom(handshake);
             if (exchangeInfoMessage.getRequest().getCommand() == MessageEnumsProto.CommandType.ctHandshake) {
@@ -66,7 +65,7 @@ public class ThreadServiceBI extends MainServerSocket {
         ExchangeInfoMessage handshakeResponse = ExchangeInfoMessage.newBuilder()
                 .setHeader(Header.newBuilder()
                         .setMessageNum("999")
-                        .setSender(Config.SERVER_NAME)
+                        .setSender(SERVER_NAME)
                         .setReceiver(exchangeInfoMessage.getHeader().getReceiver())
                         .setTimestamp(exchangeInfoMessage.getHeader().getTimestamp())
                         .setMessageNumAnswer(exchangeInfoMessage.getHeader().getMessageNum())

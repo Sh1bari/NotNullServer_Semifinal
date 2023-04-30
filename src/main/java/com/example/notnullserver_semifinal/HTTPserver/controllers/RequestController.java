@@ -1,8 +1,8 @@
 package com.example.notnullserver_semifinal.HTTPserver.controllers;
 
 import com.example.notnullserver_semifinal.HTTPserver.models.RequestMessage;
-import com.example.notnullserver_semifinal.threads.request.ThreadRequest;
-import com.example.notnullserver_semifinal.threads.ThreadServiceBI;
+import com.example.notnullserver_semifinal.socket.threads.request.ThreadRequest;
+import com.example.notnullserver_semifinal.socket.threads.ThreadServiceBI;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

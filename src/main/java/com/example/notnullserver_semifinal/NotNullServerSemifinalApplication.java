@@ -3,8 +3,7 @@ package com.example.notnullserver_semifinal;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.example.notnullserver_semifinal.threads.MainServerSocket;
-import org.springframework.scheduling.annotation.EnableAsync;
+import com.example.notnullserver_semifinal.socket.threads.MainServerSocket;
 
 @SpringBootApplication
 public class NotNullServerSemifinalApplication {

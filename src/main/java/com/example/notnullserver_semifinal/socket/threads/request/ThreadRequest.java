@@ -1,7 +1,7 @@
-package com.example.notnullserver_semifinal.threads.request;
+package com.example.notnullserver_semifinal.socket.threads.request;
 
-import com.example.notnullserver_semifinal.threads.ThreadServiceBI;
-import com.example.notnullserver_semifinal.threads.models.ErrorMessage;
+import com.example.notnullserver_semifinal.socket.threads.ThreadServiceBI;
+import com.example.notnullserver_semifinal.socket.threads.models.ErrorMessage;
 import lombok.SneakyThrows;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;

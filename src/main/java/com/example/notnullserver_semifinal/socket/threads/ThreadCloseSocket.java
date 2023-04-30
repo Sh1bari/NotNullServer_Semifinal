@@ -1,4 +1,4 @@
-package com.example.notnullserver_semifinal.threads;
+package com.example.notnullserver_semifinal.socket.threads;
 
 import java.io.IOException;
 import java.util.logging.Logger;

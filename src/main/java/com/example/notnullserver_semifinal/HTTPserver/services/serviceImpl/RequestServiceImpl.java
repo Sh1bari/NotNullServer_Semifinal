@@ -1,14 +1,12 @@
 package com.example.notnullserver_semifinal.HTTPserver.services.serviceImpl;
 
 import com.example.notnullserver_semifinal.HTTPserver.services.service.RequestService;
-import com.example.notnullserver_semifinal.threads.MainServerSocket;
-import com.example.notnullserver_semifinal.webSocket.models.Message;
+import com.example.notnullserver_semifinal.socket.threads.MainServerSocket;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 

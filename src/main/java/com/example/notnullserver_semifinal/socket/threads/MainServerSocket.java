@@ -1,19 +1,14 @@
-package com.example.notnullserver_semifinal.threads;
+package com.example.notnullserver_semifinal.socket.threads;
 
-import com.example.notnullserver_semifinal.threads.models.ServiceBI;
 import com.example.notnullserver_semifinal.webSocket.controllers.HandshakeController;
 import lombok.SneakyThrows;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import com.example.notnullserver_semifinal.socket.services.serviceImpl.SocketImlp;
-import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
 
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 

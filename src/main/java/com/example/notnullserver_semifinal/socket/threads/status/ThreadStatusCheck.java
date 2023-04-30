@@ -1,7 +1,7 @@
-package com.example.notnullserver_semifinal.threads.status;
+package com.example.notnullserver_semifinal.socket.threads.status;
 
-import com.example.notnullserver_semifinal.threads.ThreadServiceBI;
-import com.example.notnullserver_semifinal.threads.models.ErrorMessage;
+import com.example.notnullserver_semifinal.socket.threads.ThreadServiceBI;
+import com.example.notnullserver_semifinal.socket.threads.models.ErrorMessage;
 import com.google.protobuf.InvalidProtocolBufferException;
 import lombok.SneakyThrows;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -35,7 +35,7 @@ public class ThreadStatusCheck extends ThreadServiceBI {
     public void run() {
         new ThreadStatusClose(socket, name, template);
         try {
-            Thread.sleep(100);
+            sleep(100);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -1,4 +1,4 @@
-package com.example.notnullserver_semifinal.threads.models;
+package com.example.notnullserver_semifinal.socket.threads.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

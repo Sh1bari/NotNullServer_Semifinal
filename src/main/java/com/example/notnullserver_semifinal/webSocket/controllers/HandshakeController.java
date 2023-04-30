@@ -1,10 +1,7 @@
 package com.example.notnullserver_semifinal.webSocket.controllers;
 
-import com.example.notnullserver_semifinal.threads.ThreadServiceBI;
+import com.example.notnullserver_semifinal.socket.threads.ThreadServiceBI;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;

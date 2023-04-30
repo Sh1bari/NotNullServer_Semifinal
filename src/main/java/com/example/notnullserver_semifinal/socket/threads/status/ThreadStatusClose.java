@@ -1,25 +1,22 @@
-package com.example.notnullserver_semifinal.threads.request;
+package com.example.notnullserver_semifinal.socket.threads.status;
 
-import com.example.notnullserver_semifinal.threads.ThreadServiceBI;
-import com.example.notnullserver_semifinal.threads.models.ErrorMessage;
+import com.example.notnullserver_semifinal.socket.threads.ThreadServiceBI;
+import com.example.notnullserver_semifinal.socket.threads.models.ErrorMessage;
 import lombok.SneakyThrows;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.net.Socket;
 import java.util.logging.Logger;
 
-public class ThreadRequestClose extends ThreadServiceBI {
+public class ThreadStatusClose extends ThreadServiceBI {
 
     private static final Logger log =
-            Logger.getLogger(ThreadRequestClose.class.getName());
-
+            Logger.getLogger(ThreadStatusClose.class.getName());
     private Socket socket;
-
     private String name;
-
     private final SimpMessagingTemplate template;
 
-    public ThreadRequestClose(Socket socket, String name, SimpMessagingTemplate template) {
+    public ThreadStatusClose(Socket socket, String name, SimpMessagingTemplate template) {
         this.template = template;
         this.name = name;
         this.socket = socket;
@@ -29,10 +26,10 @@ public class ThreadRequestClose extends ThreadServiceBI {
     @SneakyThrows
     @Override
     public void run() {
-        synchronized (objForRequestCloseSocket) {
-            objForRequestCloseSocket.wait(5000);
+        synchronized (objForStatusCloseSocket) {
+            objForStatusCloseSocket.wait(5000);
         }
-        if (requestTimeout) {
+        if (responseTimeout) {
             serviceBIMap.remove(name);
             mapOfHandshakes.remove(socket);
             socket.close();
@@ -42,6 +39,6 @@ public class ThreadRequestClose extends ThreadServiceBI {
             template.convertAndSendToUser(sessionId, "/queue/errors", error);
             log.info("Нет ответа от сервиса " + name + ". Отключение...");
         }
-        requestTimeout = true;
+        responseTimeout = true;
     }
 }

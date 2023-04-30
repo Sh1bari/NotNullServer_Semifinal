@@ -20,5 +20,6 @@ Database->New->Data Source->PostgreSql<br/>
 Подгрузить зависимости<br/>
 <h3>Для подключения сервисов</h3>
 Сокет порт: 8888<br/>
+Сервер порт: 8085<br/>
 Для изменения перейти в com.example.notnullserver_semifinal.socket.config<br/>
 
