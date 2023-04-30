@@ -11,15 +11,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
-@Getter
-@Setter
-@ToString
 public class ThreadStatusCheck extends ThreadServiceBI{
 
     private Socket socket;
     private final SimpMessagingTemplate template;
     InputStream in = socket.getInputStream();
-    public ThreadStatusCheck(SimpMessagingTemplate template, Socket socket) throws IOException {
+    private String name;
+    public ThreadStatusCheck(SimpMessagingTemplate template, Socket socket, String name) throws IOException {
+        this.name = name;
         this.template=template;
         this.socket = socket;
         start();
@@ -29,7 +28,7 @@ public class ThreadStatusCheck extends ThreadServiceBI{
     @SneakyThrows
     @Override
     public void run() {
-        new ThreadStatusClose(socket);
+        new ThreadStatusClose(socket, name);
         Thread.sleep(100);
         while(socket.isConnected()){
             ExchangeInfoMessage msg = ExchangeInfoMessage.parseFrom(readAllBytes(socket));

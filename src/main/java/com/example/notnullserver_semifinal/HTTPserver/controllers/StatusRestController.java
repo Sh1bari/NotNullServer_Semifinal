@@ -9,6 +9,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
 
+import java.io.OutputStream;
+import java.net.Socket;
+
 @RestController
 @CrossOrigin
 public class StatusRestController extends ThreadServiceBI {
@@ -20,13 +23,11 @@ public class StatusRestController extends ThreadServiceBI {
     @PostMapping("/sendStatus")
     public void sendStatus(@RequestBody StatusModel model){
 
-        ExchangeInfoMessage.Builder msg = ExchangeInfoMessage.newBuilder().mergeFrom(fromJson1(model.getMessage()));
-        System.out.println(msg.getRequest().getCommand().name());
-        System.out.println("выше");
-        //Socket socket = serviceBIMap.get(model);
-        //OutputStream out = socket.getOutputStream();
-        //out.write(model);
-        //out.flush();
-        new ThreadStatusCheck(template, socket);
+        ExchangeInfoMessage.Builder msg = ExchangeInfoMessage.newBuilder().mergeFrom(fromJson(model.getMessage()));
+        Socket socket = serviceBIMap.get(msg.getHeader().getSender());
+        OutputStream out = socket.getOutputStream();
+        out.write(msg.build().toByteArray());
+        out.flush();
+        new ThreadStatusCheck(template, socket, msg.getHeader().getReceiver());
     }
 }
