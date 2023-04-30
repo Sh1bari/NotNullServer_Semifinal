@@ -22,4 +22,5 @@ Database->New->Data Source->PostgreSql<br/>
 Сокет порт: 8888<br/>
 Сервер порт: 8085<br/>
 Для изменения перейти в com.example.notnullserver_semifinal.socket.config<br/>
+timeout время - 5 секунд
 
