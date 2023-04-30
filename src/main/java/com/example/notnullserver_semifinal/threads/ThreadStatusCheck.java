@@ -11,7 +11,12 @@ import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ThreadStatusCheck extends ThreadServiceBI{
 
@@ -42,7 +47,9 @@ public class ThreadStatusCheck extends ThreadServiceBI{
                 ExchangeInfoMessage msg = ExchangeInfoMessage.parseFrom(readAllBytes(socket));
                 if (msg.hasResponse()) {
                     responseTimeout = false;
-                    template.convertAndSend("/connect/getStatus", msg);
+                    List<String> list = new ArrayList<>();
+                    list.add(msg.toString());
+                    template.convertAndSend("/connect/getStatus", list);
                     synchronized (objForStatusCloseSocket) {
                         objForStatusCloseSocket.notifyAll();
                     }
