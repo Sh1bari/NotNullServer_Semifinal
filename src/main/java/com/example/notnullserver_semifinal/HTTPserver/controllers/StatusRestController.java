@@ -24,7 +24,8 @@ public class StatusRestController extends ThreadServiceBI {
     public void sendStatus(@RequestBody StatusModel model){
 
         ExchangeInfoMessage.Builder msg = ExchangeInfoMessage.newBuilder().mergeFrom(fromJson(model.getMessage()));
-        Socket socket = serviceBIMap.get(msg.getHeader().getSender());
+        Socket socket = serviceBIMap.get(msg.getHeader().getReceiver());
+        System.out.println("тут сокет " + socket);
         OutputStream out = socket.getOutputStream();
         out.write(msg.build().toByteArray());
         out.flush();

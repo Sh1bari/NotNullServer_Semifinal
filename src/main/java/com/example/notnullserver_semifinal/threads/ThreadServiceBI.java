@@ -60,7 +60,7 @@ public class ThreadServiceBI extends MainServerSocket {
             if (exchangeInfoMessage.getRequest().getCommand() == MessageEnumsProto.CommandType.ctHandshake) {
                 timeout = false;
                 sendHandshakeResponse(exchangeInfoMessage);     //Ответ на handshake
-                serviceBIMap.put(exchangeInfoMessage.getHeader().getReceiver(), socket);
+                serviceBIMap.put(exchangeInfoMessage.getHeader().getSender(), socket);
                 log.info("Новое подключение " + socket.getLocalAddress());
                 mapOfHandshakes.put(socket, toJson(exchangeInfoMessage));
             }

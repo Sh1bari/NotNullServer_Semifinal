@@ -1,5 +1,6 @@
 package com.example.notnullserver_semifinal.threads;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -10,12 +11,15 @@ import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.logging.Logger;
 
 public class ThreadStatusCheck extends ThreadServiceBI{
 
+    private static final Logger log =
+            Logger.getLogger(ThreadStatusCheck.class.getName());
+
     private Socket socket;
     private final SimpMessagingTemplate template;
-    InputStream in = socket.getInputStream();
     private String name;
     public ThreadStatusCheck(SimpMessagingTemplate template, Socket socket, String name) throws IOException {
         this.name = name;
@@ -25,19 +29,27 @@ public class ThreadStatusCheck extends ThreadServiceBI{
         responseTimeout = true;
     }
 
-    @SneakyThrows
     @Override
     public void run() {
         new ThreadStatusClose(socket, name);
-        Thread.sleep(100);
-        while(socket.isConnected()){
-            ExchangeInfoMessage msg = ExchangeInfoMessage.parseFrom(readAllBytes(socket));
-            if(msg.hasResponse()){
-                responseTimeout = false;
-                template.convertAndSend("/connect/getStatus", msg);
-                synchronized (objForStatusCloseSocket){
-                    objForStatusCloseSocket.notifyAll();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        while(true){
+            try {
+                ExchangeInfoMessage msg = ExchangeInfoMessage.parseFrom(readAllBytes(socket));
+                if (msg.hasResponse()) {
+                    responseTimeout = false;
+                    template.convertAndSend("/connect/getStatus", msg);
+                    synchronized (objForStatusCloseSocket) {
+                        objForStatusCloseSocket.notifyAll();
+                    }
+                    break;
                 }
+            }catch (InvalidProtocolBufferException | NullPointerException e) {
+                log.info("Отключение клиента");
                 break;
             }
         }
