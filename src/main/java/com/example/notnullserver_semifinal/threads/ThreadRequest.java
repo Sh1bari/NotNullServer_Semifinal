@@ -1,7 +1,10 @@
 package com.example.notnullserver_semifinal.threads;
 
+import com.example.notnullserver_semifinal.threads.models.ErrorMessage;
 import lombok.SneakyThrows;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import ru.sovcombank.hackaton.proto.ExchangeInfoMessage;
+import ru.sovcombank.hackaton.proto.MessageEnumsProto;
 
 import java.net.Socket;
 import java.util.logging.Logger;
@@ -22,7 +25,6 @@ public class ThreadRequest extends ThreadServiceBI{
         start();
         requestTimeout = true;
     }
-
     @SneakyThrows
     @Override
     public void run(){
@@ -32,6 +34,44 @@ public class ThreadRequest extends ThreadServiceBI{
         }catch (InterruptedException e){
             throw new RuntimeException(e);
         }
-
+        while (true){
+            ExchangeInfoMessage msg = ExchangeInfoMessage.parseFrom(readAllBytes(socket));
+            if((msg.hasResponse()) && (msg.getResponse().getCommand() == MessageEnumsProto.CommandType.ctExecCommand)){
+                requestTimeout = false;
+                synchronized (objForRequestCloseSocket){
+                    objForRequestCloseSocket.notifyAll();
+                }
+                if(msg.getResponse().getAnswerType() == MessageEnumsProto.AnswerType.atAnswerOK){
+                    requestTimeout = false;
+                    template.convertAndSendToUser(sessionId,"/queue/request", toJson(msg));
+                } else if (msg.getResponse().getAnswerType() == MessageEnumsProto.AnswerType.atAnswerError) {
+                    ErrorMessage error = new ErrorMessage();
+                    error.setCommand("atAnswerError");
+                    error.setErrorText(msg.getResponse().getErrorText());
+                    template.convertAndSendToUser(sessionId, "/queue/errors", error);
+                } else if (msg.getResponse().getAnswerType() == MessageEnumsProto.AnswerType.atNotSupported) {
+                    ErrorMessage error = new ErrorMessage();
+                    error.setCommand("atAnswerError");
+                    if(msg.getResponse().hasErrorText()) {
+                        error.setErrorText(msg.getResponse().getErrorText());
+                    }
+                    template.convertAndSendToUser(sessionId,"/queue/errors", error);
+                }
+                break;
+            }else if(msg.hasEvent()){
+                requestTimeout = false;
+                synchronized (objForRequestCloseSocket){
+                    objForRequestCloseSocket.notifyAll();
+                }
+                while (true){
+                    ExchangeInfoMessage event = ExchangeInfoMessage.parseFrom(readAllBytes(socket));
+                    if(event.hasEvent()){
+                        template.convertAndSend("/connect/eventListener");
+                    }else break;
+                }
+            }
+        }
     }
+
+
 }

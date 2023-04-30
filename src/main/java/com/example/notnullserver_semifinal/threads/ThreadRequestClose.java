@@ -38,7 +38,7 @@ public class ThreadRequestClose extends ThreadServiceBI {
             ErrorMessage error = new ErrorMessage();
             error.setCommand("Service timeout");
             error.setErrorText(name + " не отвечает 5 секунд");
-            template.convertAndSend("/connect/errors", error);
+            template.convertAndSendToUser(sessionId, "/queue/errors", error);
             log.info("Нет ответа от сервиса " + name + ". Отключение...");
         }
         requestTimeout = true;

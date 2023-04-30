@@ -41,7 +41,7 @@ public class HandshakeController extends ThreadServiceBI {
         while (true){
             Thread.sleep(200);
             if(!Objects.equals(varMap, mapOfHandshakes)){
-                template.convertAndSend("/connect/newHandshake", mapOfHandshakes.values().toString());
+                template.convertAndSendToUser(sessionId, "/queue/newHandshake", mapOfHandshakes.values().toString());
                 varMap.clear();
                 varMap.putAll(mapOfHandshakes);
             }
