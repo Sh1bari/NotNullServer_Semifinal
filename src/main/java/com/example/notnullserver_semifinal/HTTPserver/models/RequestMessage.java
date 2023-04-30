@@ -8,5 +8,5 @@ import lombok.ToString;
 @Setter
 @ToString
 public class RequestMessage {
-    private String Message;
+    private String message;
 }
